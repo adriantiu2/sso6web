@@ -1,3 +1,5 @@
+/* styles.css */
+
 body {
   margin: 0;
   background-color: #fff;
@@ -7,16 +9,17 @@ body {
 
 .video-container {
   position: relative;
-  width: 100%;
-  height: 620px; /* iPhone 8 height */
-  max-width: 375px; /* iPhone 8 width */
-  margin: 20px auto; /* adds spacing between videos */
+  width: 90%;
+  max-width: 375px;
+  height: 667px;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   scroll-snap-align: start;
   opacity: 0.4;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease, margin-bottom 0.5s ease;
+  margin-bottom: 20px; /* default gap between videos */
 }
 
 .video-container video {
@@ -29,7 +32,7 @@ body {
 .video-container p {
   margin-top: 10px;
   color: #000;
-  font-size: 1em;
+  font-size: 1.2em;
   transform: translateY(20px);
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -37,9 +40,17 @@ body {
 
 .video-container.active {
   opacity: 1;
+  margin-bottom: 60px; /* larger gap when active */
 }
 
 .video-container.active p {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 375px) {
+  .video-container {
+    width: 100%;
+    margin: 20px 10px;
+  }
 }
