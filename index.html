@@ -34,7 +34,7 @@
 
     <div id="video1" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 1</p>
@@ -42,7 +42,7 @@
 
     <div id="video2" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 2</p>
@@ -50,7 +50,7 @@
 
     <div id="video3" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 3</p>
@@ -58,7 +58,7 @@
 
     <div id="video4" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 4</p>
@@ -66,7 +66,7 @@
 
     <div id="video5" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 5</p>
@@ -74,7 +74,7 @@
 
     <div id="video6" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 6</p>
@@ -82,7 +82,7 @@
 
     <div id="video7" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 7</p>
@@ -90,7 +90,7 @@
 
     <div id="video8" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 8</p>
@@ -98,7 +98,7 @@
 
     <div id="video9" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 9</p>
@@ -106,7 +106,7 @@
 
     <div id="video10" class="video-container">
       <video muted playsinline loop>
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <p>Video 10</p>
@@ -227,16 +227,13 @@
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         const video = entry.target.querySelector('video');
-        // Skip if this is the target video from hash URL
-        if (window.location.hash && entry.target.id === window.location.hash.substring(1)) {
-          return;
-        }
-
+        
         if (entry.isIntersecting && entry.intersectionRatio > 0.8) {
           video.play();
           entry.target.classList.add('active');
         } else {
           video.pause();
+          video.currentTime = 0; // Reset video to start
           entry.target.classList.remove('active');
         }
       });
