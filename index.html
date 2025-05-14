@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Feed</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="video1" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 1</p>
+  </div>
+
+  <div id="video2" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 2</p>
+  </div>
+
+  <div id="video3" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 3</p>
+  </div>
+
+  <div id="video4" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 4</p>
+  </div>
+
+  <div id="video5" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 5</p>
+  </div>
+
+  <div id="video6" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 6</p>
+  </div>
+
+  <div id="video7" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 7</p>
+  </div>
+
+  <div id="video8" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 8</p>
+  </div>
+
+  <div id="video9" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 9</p>
+  </div>
+
+  <div id="video10" class="video-container">
+    <video muted playsinline loop>
+      <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Video 10</p>
+  </div>
+
+  <script>
+    // Scroll to hash if present
+    window.addEventListener('load', () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const target = document.querySelector(hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+
+    // Autoplay logic using Intersection Observer
+    const containers = document.querySelectorAll('.video-container');
+    const videos = document.querySelectorAll('video');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const video = entry.target.querySelector('video');
+
+        if (entry.isIntersecting && entry.intersectionRatio > 0.8) {
+          video.play();
+          entry.target.classList.add('active');
+        } else {
+          video.pause();
+          entry.target.classList.remove('active');
+        }
+      });
+    }, {
+      threshold: [0, 0.8, 1.0]
+    });
+
+    containers.forEach(container => {
+      observer.observe(container);
+    });
+
+    // Toggle mute/unmute on click anywhere
+    document.body.addEventListener('click', () => {
+      videos.forEach(video => {
+        video.muted = !video.muted;
+      });
+    });
+  </script>
+</body>
+</html>
