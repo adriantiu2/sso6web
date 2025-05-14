@@ -167,6 +167,35 @@ document.querySelectorAll('#indexOverlay a').forEach(link => {
           target.scrollIntoView({ behavior: 'smooth' });
         }
       }
+
+      // Progressive preloading of all videos
+      const allVideos = document.querySelectorAll('video');
+      let currentIndex = 0;
+
+      function preloadNextVideo() {
+        if (currentIndex >= allVideos.length) return;
+        
+        const video = allVideos[currentIndex];
+        // Skip if this is the target video (already loaded)
+        if (window.location.hash && video.parentElement.id === window.location.hash.substring(1)) {
+          currentIndex++;
+          preloadNextVideo();
+          return;
+        }
+
+        // Set preload attribute
+        video.preload = 'auto';
+        
+        // Load the video
+        video.load();
+        
+        // Move to next video after a short delay
+        currentIndex++;
+        setTimeout(preloadNextVideo, 100);
+      }
+
+      // Start preloading after a short initial delay
+      setTimeout(preloadNextVideo, 500);
     });
 
     // Autoplay logic using Intersection Observer
