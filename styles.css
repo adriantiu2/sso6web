@@ -7,9 +7,58 @@ body {
   overflow-x: hidden;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header .left,
+.header .right {
+  cursor: pointer;
+}
+
+#indexOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  color: #000;
+  z-index: 100;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+#indexOverlay.active {
+  display: block;
+}
+
+#indexOverlay .close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  cursor: pointer;
+}
+
+#indexOverlay{
+  max-width: 375px;
+}
+
+.vfeed{
+  max-width: 375px;
+}
+
 .video-container {
+  scroll-margin-top: 50px; /* This creates space above the element when scrolling to it */
   position: relative;
-  width: 100%;
+  width: 90%;
   max-width: 375px;
   height: 667px;
   margin: 20px auto;
@@ -23,7 +72,7 @@ body {
 }
 
 .video-container video {
-  width: 90%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   border-style: solid;
@@ -33,7 +82,6 @@ body {
 .video-container p {
   margin-top: 10px;
   color: #000;
-  font-size: 1.2em;
   transform: translateY(20px);
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -49,3 +97,15 @@ body {
   transform: translateY(0);
 }
 
+@media (max-width: 500px) {
+  #indexOverlay {
+    max-width: 100%;
+  }
+  .vfeed {
+    max-width: 100%;
+  }
+  .video-container {
+    width: 90%;
+  /*  margin: 20px 10px;*/
+  }
+}
