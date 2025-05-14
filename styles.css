@@ -97,6 +97,17 @@ body {
   transform: translateY(0);
 }
 
+.index-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.index-header p {
+  margin: 0;
+}
+
 @media (max-width: 500px) {
   #indexOverlay {
     max-width: 100%;
