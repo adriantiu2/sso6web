@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #000;
+  background-color: #fff;
   font-family: sans-serif;
   overflow-x: hidden;
 }
@@ -10,10 +10,9 @@ body {
   width: 100%;
   height: 667px; /* iPhone 8 height */
   max-width: 375px; /* iPhone 8 width */
-  margin: 0 auto;
+  margin: 20px auto; /* adds spacing between videos */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   scroll-snap-align: start;
   opacity: 0.4;
@@ -27,13 +26,8 @@ body {
 }
 
 .video-container p {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  margin: 0;
-  padding: 0.5em 1em;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
+  margin-top: 10px;
+  color: #000;
   font-size: 1.2em;
   transform: translateY(20px);
   opacity: 0;
@@ -47,4 +41,5 @@ body {
 .video-container.active p {
   opacity: 1;
   transform: translateY(0);
+  font-size: 16px;
 }
