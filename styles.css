@@ -112,7 +112,7 @@ body {
 
 @media (max-height: 700px) {
   .video-container video{
-    height: 85%;
+    height: 80%;
   }
 
   }

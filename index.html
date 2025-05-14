@@ -115,16 +115,36 @@
 
     
 
-    // Close index overlay on link click
-document.querySelectorAll('#indexOverlay a').forEach(link => {
-  link.addEventListener('click', (event) => {
-    // Prevent click from muting video
-    event.stopPropagation();
+    // Close index overlay on link click and activate target video
+    document.querySelectorAll('#indexOverlay a').forEach(link => {
+      link.addEventListener('click', (event) => {
+        // Prevent click from muting video
+        event.stopPropagation();
 
-    // Close the overlay
-    document.getElementById('indexOverlay').classList.remove('active');
-  });
-});
+        // Close the overlay
+        document.getElementById('indexOverlay').classList.remove('active');
+
+        // Get the target video container
+        const targetId = link.getAttribute('href').substring(1);
+        const targetContainer = document.getElementById(targetId);
+        const targetVideo = targetContainer.querySelector('video');
+
+        // Activate the target video
+        if (targetVideo) {
+          // Force the video to be active and visible
+          targetContainer.classList.add('active');
+          targetVideo.load();
+          
+          // Ensure video plays after loading
+          targetVideo.addEventListener('loadeddata', () => {
+            targetVideo.play();
+          }, { once: true });
+          
+          // Also try to play immediately in case loadeddata already fired
+          targetVideo.play();
+        }
+      });
+    });
 
 
   const indexToggle = document.getElementById("indexToggle");
