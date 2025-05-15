@@ -33,7 +33,8 @@
     </div>
 
     <div id="video1" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -41,7 +42,8 @@
     </div>
 
     <div id="video2" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -49,7 +51,8 @@
     </div>
 
     <div id="video3" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -57,7 +60,8 @@
     </div>
 
     <div id="video4" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -65,7 +69,8 @@
     </div>
 
     <div id="video5" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -73,7 +78,8 @@
     </div>
 
     <div id="video6" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -81,7 +87,8 @@
     </div>
 
     <div id="video7" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -89,7 +96,8 @@
     </div>
 
     <div id="video8" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -97,7 +105,8 @@
     </div>
 
     <div id="video9" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/0506_pls_dont_go_v1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -105,7 +114,8 @@
     </div>
 
     <div id="video10" class="video-container">
-      <video muted playsinline loop>
+      <div class="loading">Loading...</div>
+      <video muted playsinline loop preload="metadata">
         <source src="videos/movielos.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -179,6 +189,7 @@
             // Ensure video plays after loading
             targetVideo.addEventListener('loadeddata', () => {
               targetVideo.play();
+              target.querySelector('.loading').style.display = 'none';
             }, { once: true });
             
             // Also try to play immediately in case loadeddata already fired
@@ -198,22 +209,27 @@
         if (currentIndex >= allVideos.length) return;
         
         const video = allVideos[currentIndex];
+        const container = video.parentElement;
+        const loading = container.querySelector('.loading');
+        
         // Skip if this is the target video (already loaded)
-        if (window.location.hash && video.parentElement.id === window.location.hash.substring(1)) {
+        if (window.location.hash && container.id === window.location.hash.substring(1)) {
           currentIndex++;
           preloadNextVideo();
           return;
         }
 
-        // Set preload attribute
-        video.preload = 'auto';
-        
         // Load the video
         video.load();
         
+        // Hide loading indicator when video is ready
+        video.addEventListener('loadeddata', () => {
+          loading.style.display = 'none';
+        }, { once: true });
+        
         // Move to next video after a short delay
         currentIndex++;
-        setTimeout(preloadNextVideo, 100);
+        setTimeout(preloadNextVideo, 200);
       }
 
       // Start preloading after a short initial delay
@@ -227,13 +243,17 @@
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         const video = entry.target.querySelector('video');
+        const loading = entry.target.querySelector('.loading');
         
         if (entry.isIntersecting && entry.intersectionRatio > 0.8) {
-          video.play();
-          entry.target.classList.add('active');
+          if (video.readyState >= 3) { // Video is loaded enough to play
+            video.play();
+            entry.target.classList.add('active');
+            loading.style.display = 'none';
+          }
         } else {
           video.pause();
-          video.currentTime = 0; // Reset video to start
+          video.currentTime = 0;
           entry.target.classList.remove('active');
         }
       });
