@@ -113,6 +113,32 @@ body {
   margin: 0;
 }
 
+.index-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.index-button {
+  display: block;
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  background: #fff;
+  border: 1px solid #000;
+  font-family: sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.index-button:hover {
+  background-color: #f0f0f0;
+}
+
 @media (max-width: 500px) {
   #indexOverlay {
     max-width: 100%;
